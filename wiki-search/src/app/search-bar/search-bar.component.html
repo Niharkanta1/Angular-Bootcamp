@@ -1,8 +1,15 @@
 <div class="box">
     <form (submit)="onFormSubmit($event)">
-        <input type="text" 
-        (input)="searchKey = $any($event.target).value"
-        class="input"
-        placeholder="Enter Search Term">
+        <div class="field is-grouped">
+            <div class="control is-expanded">
+                <input type="text" 
+            (input)="searchKey = $any($event.target).value"
+            class="input"
+            placeholder="Enter Search Term">
+            </div>
+            <div class="control">
+                <button class="button is-primary">Search</button>
+            </div>
+        </div>
     </form>
 </div>

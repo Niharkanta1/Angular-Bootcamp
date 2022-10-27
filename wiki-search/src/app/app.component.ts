@@ -13,8 +13,8 @@ export class AppComponent {
   }
   
   onSearch(event : any) {
-    this.wikiservice.search(event).subscribe((response: any) => {
-      this.pages = response.query.search;
+    this.wikiservice.search(event).subscribe( pagelist => {
+      this.pages = pagelist;
     })
   }
 }
