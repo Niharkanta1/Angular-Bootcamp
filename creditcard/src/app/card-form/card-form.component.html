@@ -1,0 +1,31 @@
+<h1 class="title is-3 has-text-centered">Provide your credit card details</h1>
+<div class="columns">
+    <div class="column">
+        <app-card [name]="getStringValue(cardForm.controls.name.value)"
+            [cardNumber]="getStringValue(cardForm.controls.cardNumber.value)"
+            [expiration]="getStringValue(cardForm.controls.expiration.value)"></app-card>
+    </div>
+
+    <div class="column">
+        <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+            <app-input [control]="cardForm.controls.name" label="Name" placeHolder="Name minimum 3 characters">
+            </app-input>
+            <app-input [control]="cardForm.controls.cardNumber" label="Card Number" placeHolder="16 digit card number">
+            </app-input>
+            <div class="columns">
+                <div class="column">
+                    <app-input [control]="cardForm.controls.expiration" label="Expiration" placeHolder="mm/yy">
+                    </app-input>
+                </div>
+                <div class="column">
+                    <app-input [control]="cardForm.controls.securityCode" label="Security Code"
+                        placeHolder="3 Digit number"></app-input>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="button is-primary" [disabled]="cardForm.invalid" type="submit">Submit</button>
+                <button class="button is-warning" type="button" (click)="onReset()">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
