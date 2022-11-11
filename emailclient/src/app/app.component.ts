@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { AuthService, AuthStatus } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +12,12 @@ export class AppComponent implements OnInit {
   
   ngOnInit(): void {
     this.authService.signedin$.subscribe((signedin) => {
-      this.signedin = signedin;
+      if(signedin === AuthStatus.signedIn) {
+        this.signedin = true;
+      } else {
+        this.signedin = false;
+      }
     })
-    this.authService.checkAuthStatus().subscribe(()=> {});
+    this.authService.checkAuthStatus().subscribe(response => console.log(response));
   }
 }
