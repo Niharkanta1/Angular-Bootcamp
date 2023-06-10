@@ -37,6 +37,7 @@ export interface SignedinResponse {
 })
 export class AuthService {
   rootURL = 'https://api.angular-email.com';
+  //rootURL = 'http://localhost:3000';
   signedin$ = new BehaviorSubject<number>(0);
 
   constructor(private http: HttpClient) { }
@@ -67,7 +68,7 @@ export class AuthService {
   signout() {
     return this.http.post(`${this.rootURL}/auth/signout`, {}).pipe(
       tap(() => {
-        this.signedin$.next(AuthStatus.signedIn);
+        this.signedin$.next(AuthStatus.signedOut);
       })
     )
   }
@@ -76,6 +77,7 @@ export class AuthService {
     return this.http.post(`${this.rootURL}/auth/signin`, crendentials).pipe(
       tap(() => {
         this.signedin$.next(AuthStatus.signedIn);
+        console.log("Login Successful");
       })
     );
   }

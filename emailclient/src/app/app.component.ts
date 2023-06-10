@@ -7,9 +7,10 @@ import { AuthService, AuthStatus } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  title = "emailclient";
   signedin = false;
   constructor(private authService: AuthService) {}
-  
+
   ngOnInit(): void {
     this.authService.signedin$.subscribe((signedin) => {
       if(signedin === AuthStatus.signedIn) {
