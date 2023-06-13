@@ -9,6 +9,10 @@ import { EmailIndexComponent } from './email-index/email-index.component';
 import { EmailShowComponent } from './email-show/email-show.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ModalComponent } from '../shared/modal/modal.component';
+import { EmailFormComponent } from './email-form/email-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,11 +23,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
     EmailIndexComponent,
     EmailShowComponent,
     PlaceholderComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    EmailFormComponent
   ],
   imports: [
     CommonModule,
-    InboxRoutingModule
+    InboxRoutingModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class InboxModule { }

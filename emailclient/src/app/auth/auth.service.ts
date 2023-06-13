@@ -32,6 +32,10 @@ export interface SignedinResponse {
   username: string;
 }
 
+export interface SigninResponse {
+  username: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,6 +43,7 @@ export class AuthService {
   rootURL = 'https://api.angular-email.com';
   //rootURL = 'http://localhost:3000';
   signedin$ = new BehaviorSubject<number>(0);
+  username: string = '';
 
   constructor(private http: HttpClient) { }
 
@@ -50,17 +55,19 @@ export class AuthService {
 
   singup(values: SignupCrendentials) {
     return this.http.post<SingupResponse>(`${this.rootURL}/auth/signup`, values).pipe(
-      tap(()=> {
-        this.signedin$.next(1);
+      tap((response)=> {
+        this.signedin$.next(AuthStatus.signedIn);
+        this.username = response.username;
       })
     );
   }
 
   checkAuthStatus() {
     return this.http.get<SignedinResponse>(`${this.rootURL}/auth/signedin`).pipe(
-      tap(({ authenticated }) => {
+      tap(({ authenticated, username }) => {
         const value = authenticated? AuthStatus.signedIn : AuthStatus.signedOut;
         this.signedin$.next(value);
+        this.username = username;
       })
     );
   }
@@ -74,9 +81,10 @@ export class AuthService {
   }
 
   singin(crendentials: SigninCredentials) {
-    return this.http.post(`${this.rootURL}/auth/signin`, crendentials).pipe(
-      tap(() => {
+    return this.http.post<SigninResponse>(`${this.rootURL}/auth/signin`, crendentials).pipe(
+      tap((res) => {
         this.signedin$.next(AuthStatus.signedIn);
+        this.username = res.username;
         console.log("Login Successful");
       })
     );
